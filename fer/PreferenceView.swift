@@ -70,11 +70,11 @@ struct SettingHeadline : View {
             VStack (alignment: .leading, spacing: 8){
                 Capsule()
                     .frame(width: 30, height: 3)
-                .foregroundStyle(.indigo)
+                    .foregroundStyle(Color.ferNavy)
                 Text(title.uppercased())
                     .font(.headline)
                     .bold()
-                    .foregroundStyle(.indigo)
+                    .foregroundStyle(Color.ferNavy)
                 Text(description)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -104,7 +104,7 @@ struct SettingField : View{
             Spacer()
             Toggle("", isOn: $isOn)
                 .labelsHidden()
-                .tint(.indigo)
+                .tint(Color.ferNavy)
         }
         Divider()
     }
@@ -137,9 +137,9 @@ struct BottomButton : View {
         VStack(spacing: 5) {
             Image(systemName: selected ? "\(icon).fill" : icon )
                 .font(.title)
-                .foregroundStyle( selected ? .indigo : .primary )
+                .foregroundStyle( selected ? Color.ferNavy : .primary )
             Text(name)
-                .foregroundStyle( selected ? .indigo : .primary)
+                .foregroundStyle( selected ? Color.ferNavy : .primary)
         }
     }
     
@@ -169,5 +169,5 @@ struct InfoTable : View {
 }
 
 #Preview {
-    ContentView()
+    PreferenceView()
 }
