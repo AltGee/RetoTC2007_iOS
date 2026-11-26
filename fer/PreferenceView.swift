@@ -17,6 +17,8 @@ struct PreferenceView: View {
     
     @State private var reducirMovimiento = false
     
+    @State private var selectedTheme = "Sistema"
+    @State private var selectedFontsize = "Normal"
     
     var body: some View {
         
@@ -43,10 +45,13 @@ struct PreferenceView: View {
                         SettingField(title: "Anuncios para becarios", description: "Renovaciónes, requisitos y recordatorios", isOn: $anunciosBecarios)
                         SettingField(title: "Anuncios para aspirantes", description: "Convocatorias y procesos de solicitud", isOn: $anunciosAspirantes)
                         SettingField(title: "Avisos generales", description: "Eventos y noticias de la fundación", isOn: $anunciosGenerales)
-
+                        
                         SettingHeadline(title: "Apariencia", description: "Elige cómo se ve la aplicación")
-
+                        SettingDropdown(title: "", options: ["Sistema", "Claro", "Obscuro"], selected: $selectedTheme)
+                        
                         SettingHeadline(title: "Accesibilidad", description: "Ajusta la app para leerla con más comodidad")
+                        SettingDropdown(title: "Tamaño de texto", options: ["Normal", "Grande", "Muy Grande"], selected: $selectedFontsize)
+                        
                         SettingField(title: "Reducir el movimiento", description: "Quita las animaciones que deslizan o agrandan elementos", isOn: $reducirMovimiento)
                         
                         SettingHeadline(title: "Acerca de la fundación", description: "Conoce más de la fundación y siguenos en redes sociales")
@@ -55,8 +60,9 @@ struct PreferenceView: View {
                 }
                 
                 
-                Spacer()
                 if showDummyBottomBar {
+                    
+                    Spacer()
                     BottomBarTemp()
                 }
             }
@@ -115,6 +121,24 @@ struct SettingField : View{
         Divider()
     }
 }
+
+
+struct SettingDropdown : View {
+    
+    let title : String
+    let options : [String]
+    @Binding var selected: String
+    
+    var body : some View {
+        Picker(title, selection: $selected){
+            ForEach(options, id: \.self) { option in
+                Text(option).tag(option)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+}
+
 
 struct BottomBarTemp : View {
     
@@ -175,5 +199,5 @@ struct InfoTable : View {
 }
 
 #Preview {
-    PreferenceView(showDummtTopBar: true, showDummyBottomBar: true)
+    PreferenceView(showDummtTopBar: true, showDummyBottomBar: false)
 }
