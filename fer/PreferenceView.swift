@@ -6,6 +6,9 @@ import SwiftUI
 
 struct PreferenceView: View {
     
+    let showDummtTopBar : Bool
+    let showDummyBottomBar : Bool
+    
     @State private var notificationsEnabled = true
     
     @State private var anunciosBecarios = true
@@ -23,8 +26,9 @@ struct PreferenceView: View {
             VStack (spacing: 20) {
                 
                 // Top Bar
-                TopBar()
-                Spacer()
+                if showDummtTopBar {
+                    TopBar()
+                }
                 
                 // Main Content
                 ScrollView (showsIndicators: false) {
@@ -50,9 +54,11 @@ struct PreferenceView: View {
                     .padding()
                 }
                 
+                
                 Spacer()
-                // Bottom Bar
-                BottomBarTemp()
+                if showDummyBottomBar {
+                    BottomBarTemp()
+                }
             }
             .padding()
         }
@@ -169,5 +175,5 @@ struct InfoTable : View {
 }
 
 #Preview {
-    PreferenceView()
+    PreferenceView(showDummtTopBar: true, showDummyBottomBar: true)
 }
