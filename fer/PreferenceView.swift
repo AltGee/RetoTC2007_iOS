@@ -22,10 +22,13 @@ struct PreferenceView: View {
     
     var body: some View {
         
-        
+        // let bg = Color(red: 235/255, green: 235/255, blue: 235/255)
         ZStack {
             Color.white.ignoresSafeArea()
+            //bg.ignoresSafeArea()
+            
             VStack (spacing: 20) {
+                    
                 
                 // Top Bar
                 if showDummtTopBar {
@@ -35,8 +38,6 @@ struct PreferenceView: View {
                 // Main Content
                 ScrollView (showsIndicators: false) {
                     VStack (spacing: 20) {
-                        
-                        // InfoTable()
                         
                         SettingHeadline(title: "Notificaciones", description: "Elige cómo quieres enterarte de las novedades")
                         SettingField(title: "Notificaciones push", description: "Recibe avisos directamente en tu celular.", isOn: $notificationsEnabled)
@@ -55,13 +56,15 @@ struct PreferenceView: View {
                         SettingField(title: "Reducir el movimiento", description: "Quita las animaciones que deslizan o agrandan elementos", isOn: $reducirMovimiento)
                         
                         SettingHeadline(title: "Acerca de la fundación", description: "Conoce más de la fundación y siguenos en redes sociales")
+                        
+                            
+                        InfoTable()
                     }
                     .padding()
                 }
                 
                 
                 if showDummyBottomBar {
-                    
                     Spacer()
                     BottomBarTemp()
                 }
@@ -193,11 +196,53 @@ struct TopBar : View {
 struct InfoTable : View {
     
     var body : some View {
-        Text("hi")
+        let bg = Color(red: 245/255, green: 245/255, blue: 245/255)
+        ZStack {
+            bg.clipShape(RoundedRectangle(cornerRadius: 8))
+            VStack (spacing: 20)
+            {
+                Text("Fundación Esposos Rodríguez")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                InfoTableRow(icon: "globe", title: "Sitio web", secondary: "fer.org.mx")
+                InfoTableRow(icon: "phone", title: "Llamar", secondary: "(662) 212 - 1453")
+                InfoTableRow(icon: "globe", title: "Facebook", secondary: "fer.org.mx")
+                InfoTableRow(icon: "globe", title: "Instagram", secondary: "@fundacionespososrodriguez")
+            }
+            .padding()
+        }
     }
+}
+
+struct InfoTableRow : View {
+    let icon : String
+    let title : String
+    let secondary : String
     
+    var body : some View {
+        Divider()
+        HStack {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundStyle(.white)
+                .frame(width: 45, height: 45)
+                .background(Color.ferNavy)
+                .clipShape(Circle())
+            VStack (alignment: .leading) {
+                Text(title)
+                    .font(.headline)
+                Text(secondary)
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+            }
+            Spacer()
+            Image(systemName: "link")
+                .font(.system(size: 20))
+            
+        }
+    }
 }
 
 #Preview {
-    PreferenceView(showDummtTopBar: true, showDummyBottomBar: false)
+    PreferenceView(showDummtTopBar: true, showDummyBottomBar: true)
 }
