@@ -1,0 +1,248 @@
+//
+//  PreferenceView.swift
+//
+
+import SwiftUI
+
+struct PreferenceView: View {
+    
+    let showDummtTopBar : Bool
+    let showDummyBottomBar : Bool
+    
+    @State private var notificationsEnabled = true
+    
+    @State private var anunciosBecarios = true
+    @State private var anunciosAspirantes = false
+    @State private var anunciosGenerales = true
+    
+    @State private var reducirMovimiento = false
+    
+    @State private var selectedTheme = "Sistema"
+    @State private var selectedFontsize = "Normal"
+    
+    var body: some View {
+        
+        // let bg = Color(red: 235/255, green: 235/255, blue: 235/255)
+        ZStack {
+            Color.white.ignoresSafeArea()
+            //bg.ignoresSafeArea()
+            
+            VStack (spacing: 20) {
+                    
+                
+                // Top Bar
+                if showDummtTopBar {
+                    TopBar()
+                }
+                
+                // Main Content
+                ScrollView (showsIndicators: false) {
+                    VStack (spacing: 20) {
+                        
+                        SettingHeadline(title: "Notificaciones", description: "Elige cómo quieres enterarte de las novedades")
+                        SettingField(title: "Notificaciones push", description: "Recibe avisos directamente en tu celular.", isOn: $notificationsEnabled)
+                        
+                        SettingHeadline(title: "Temas de interés", description: "Selecciona qué publicaciones te interesan")
+                        SettingField(title: "Anuncios para becarios", description: "Renovaciónes, requisitos y recordatorios", isOn: $anunciosBecarios)
+                        SettingField(title: "Anuncios para aspirantes", description: "Convocatorias y procesos de solicitud", isOn: $anunciosAspirantes)
+                        SettingField(title: "Avisos generales", description: "Eventos y noticias de la fundación", isOn: $anunciosGenerales)
+                        
+                        SettingHeadline(title: "Apariencia", description: "Elige cómo se ve la aplicación")
+                        SettingDropdown(title: "", options: ["Sistema", "Claro", "Obscuro"], selected: $selectedTheme)
+                        
+                        SettingHeadline(title: "Accesibilidad", description: "Ajusta la app para leerla con más comodidad")
+                        SettingDropdown(title: "Tamaño de texto", options: ["Normal", "Grande", "Muy Grande"], selected: $selectedFontsize)
+                        
+                        SettingField(title: "Reducir el movimiento", description: "Quita las animaciones que deslizan o agrandan elementos", isOn: $reducirMovimiento)
+                        
+                        SettingHeadline(title: "Acerca de la fundación", description: "Conoce más de la fundación y siguenos en redes sociales")
+                        
+                            
+                        InfoTable()
+                    }
+                    .padding()
+                }
+                
+                
+                if showDummyBottomBar {
+                    Spacer()
+                    BottomBarTemp()
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+
+struct SettingHeadline : View {
+    
+    let title: String
+    let description: String
+    
+    var body: some View {
+        HStack {
+            VStack (alignment: .leading, spacing: 8){
+                Capsule()
+                    .frame(width: 30, height: 3)
+                    .foregroundStyle(Color.ferNavy)
+                Text(title.uppercased())
+                    .font(.headline)
+                    .bold()
+                    .foregroundStyle(Color.ferNavy)
+                Text(description)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+        }
+    }
+    
+}
+
+struct SettingField : View{
+    
+    let title: String
+    let description: String
+    @Binding var isOn: Bool
+    
+    var body: some View {
+        HStack (spacing: 20) {
+            VStack (alignment: .leading, spacing: 8) {
+                Text(title)
+                    .font(.headline)
+                    .bold()
+                Text(description)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+                .tint(Color.ferNavy)
+        }
+        Divider()
+    }
+}
+
+
+struct SettingDropdown : View {
+    
+    let title : String
+    let options : [String]
+    @Binding var selected: String
+    
+    var body : some View {
+        Picker(title, selection: $selected){
+            ForEach(options, id: \.self) { option in
+                Text(option).tag(option)
+            }
+        }
+        .pickerStyle(.segmented)
+    }
+}
+
+
+struct BottomBarTemp : View {
+    
+    var body : some View {
+        HStack()
+        {
+            Spacer()
+            BottomButtonTemp(name: "Anuncios", icon: "megaphone")
+            Spacer()
+            BottomButtonTemp(name: "Inicio", icon: "house")
+            Spacer()
+            BottomButtonTemp(name: "Preferencias", icon: "gearshape", selected: true)
+            Spacer()
+        }
+        .frame(maxHeight: 0)
+    }
+    
+}
+
+struct BottomButtonTemp : View {
+    let name : String
+    let icon : String
+    var selected : Bool = false
+    
+    var body : some View {
+        VStack(spacing: 5) {
+            Image(systemName: selected ? "\(icon).fill" : icon )
+                .font(.title)
+                .foregroundStyle( selected ? Color.ferNavy : .primary )
+            Text(name)
+                .foregroundStyle( selected ? Color.ferNavy : .primary)
+        }
+    }
+    
+}
+
+struct TopBar : View {
+    var body : some View {
+        VStack(spacing: 20){
+            HStack {
+                Text("Preferencias")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                Spacer()
+                Image(systemName: "bell")
+                    .font(.title)
+            }
+        }
+    }
+}
+
+struct InfoTable : View {
+    
+    var body : some View {
+        let bg = Color(red: 245/255, green: 245/255, blue: 245/255)
+        ZStack {
+            bg.clipShape(RoundedRectangle(cornerRadius: 8))
+            VStack (spacing: 20)
+            {
+                Text("Fundación Esposos Rodríguez")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                InfoTableRow(icon: "globe", title: "Sitio web", secondary: "fer.org.mx")
+                InfoTableRow(icon: "phone", title: "Llamar", secondary: "(662) 212 - 1453")
+                InfoTableRow(icon: "globe", title: "Facebook", secondary: "fer.org.mx")
+                InfoTableRow(icon: "globe", title: "Instagram", secondary: "@fundacionespososrodriguez")
+            }
+            .padding()
+        }
+    }
+}
+
+struct InfoTableRow : View {
+    let icon : String
+    let title : String
+    let secondary : String
+    
+    var body : some View {
+        Divider()
+        HStack {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundStyle(.white)
+                .frame(width: 45, height: 45)
+                .background(Color.ferNavy)
+                .clipShape(Circle())
+            VStack (alignment: .leading) {
+                Text(title)
+                    .font(.headline)
+                Text(secondary)
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+            }
+            Spacer()
+            Image(systemName: "link")
+                .font(.system(size: 20))
+            
+        }
+    }
+}
+
+#Preview {
+    PreferenceView(showDummtTopBar: true, showDummyBottomBar: true)
+}
