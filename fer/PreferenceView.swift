@@ -52,7 +52,7 @@ struct PreferenceView: View {
                 
                 Spacer()
                 // Bottom Bar
-                BottomBar()
+                BottomBarTemp()
             }
             .padding()
         }
@@ -110,17 +110,17 @@ struct SettingField : View{
     }
 }
 
-struct BottomBar : View {
+struct BottomBarTemp : View {
     
     var body : some View {
         HStack()
         {
             Spacer()
-            BottomButton(name: "Anuncios", icon: "megaphone")
+            BottomButtonTemp(name: "Anuncios", icon: "megaphone")
             Spacer()
-            BottomButton(name: "Inicio", icon: "house")
+            BottomButtonTemp(name: "Inicio", icon: "house")
             Spacer()
-            BottomButton(name: "Preferencias", icon: "gearshape", selected: true)
+            BottomButtonTemp(name: "Preferencias", icon: "gearshape", selected: true)
             Spacer()
         }
         .frame(maxHeight: 0)
@@ -128,7 +128,7 @@ struct BottomBar : View {
     
 }
 
-struct BottomButton : View {
+struct BottomButtonTemp : View {
     let name : String
     let icon : String
     var selected : Bool = false
