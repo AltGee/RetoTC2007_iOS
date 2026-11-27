@@ -1,29 +1,29 @@
 
 import SwiftUI
 
-struct AnuncioTarjetaView: View {
-    let anuncio: Anuncio
+struct AnnouncementCardView: View {
+    let announcement: Announcement
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(anuncio.titulo)
+                Text(announcement.title)
                     .font(.headline)
                     .foregroundColor(.gray)
 
                 Spacer()
 
-                Text(anuncio.fecha)
+                Text(announcement.date)
                     .font(.caption)
                     .foregroundColor(.gray)
             }
 
-            Text(anuncio.descripcion)
+            Text(announcement.description)
                 .font(.caption)
                 .foregroundColor(.gray)
                 .lineLimit(2)
 
-            Image(anuncio.imagen)
+            Image(announcement.image)
                 .resizable()
                 .scaledToFill()
                 .frame(height: 180)
@@ -36,14 +36,14 @@ struct AnuncioTarjetaView: View {
 }
 
 #Preview {
-    AnuncioTarjetaView(
-        anuncio: Anuncio(
+    AnnouncementCardView(
+        announcement: Announcement(
             id: 1,
-            titulo: "Renovación",
-            categoria: "Becarios",
-            fecha: "Hace un día",
-            descripcion: "Ya puedes renovar",
-            imagen: "convocatoria"
+            title: "Renovación",
+            category: "Becarios",
+            date:"Hace un día",
+            description: "Ya puedes renovar",
+            image: "convocatoria"
         )
     )
     .padding()
