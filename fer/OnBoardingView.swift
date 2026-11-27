@@ -2,16 +2,24 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @AppStorage("onboardingCompleted")
+    private var onboardingCompleted = false
+    
+    @State private var paso = 0
+    
     var body: some View {
-        WelcomeView()
+        if onboardingCompleted {
+            MainTabView()
+        } else if paso == 0 {
+            WelcomeView {
+                paso = 1
+            }
+        } else {
+            InterestsView {
+                onboardingCompleted = true
+            }
+        }
     }
-}
-
-extension Color {
-    static let ferNavy       = Color(red: 0x14 / 255, green: 0x3F / 255, blue: 0x90 / 255)
-    static let ferNavyDeep   = Color(red: 0x0B / 255, green: 0x2A / 255, blue: 0x66 / 255)
-
-    static let ferNavyBright = Color(red: 0x24 / 255, green: 0x56 / 255, blue: 0xB8 / 255)
 }
 
 extension Font {

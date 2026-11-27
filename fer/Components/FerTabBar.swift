@@ -55,7 +55,7 @@ private struct FerTabItem: View {
                     .minimumScaleFactor(0.8)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .contentShape(Rectangle()) /
+            .contentShape(Rectangle()) 
         }
         .buttonStyle(.plain)
         .dynamicTypeSize(...DynamicTypeSize.accessibility1)

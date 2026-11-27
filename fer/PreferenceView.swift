@@ -48,7 +48,7 @@ struct PreferenceView: View {
                         SettingField(title: "Avisos generales", description: "Eventos y noticias de la fundación", isOn: $anunciosGenerales)
                         
                         SettingHeadline(title: "Apariencia", description: "Elige cómo se ve la aplicación")
-                        SettingDropdown(title: "", options: ["Sistema", "Claro", "Obscuro"], selected: $selectedTheme)
+                        SettingDropdown(title: "", options: ["Sistema", "Claro", "Oscuro"], selected: $selectedTheme)
                         
                         SettingHeadline(title: "Accesibilidad", description: "Ajusta la app para leerla con más comodidad")
                         SettingDropdown(title: "Tamaño de texto", options: ["Normal", "Grande", "Muy Grande"], selected: $selectedFontsize)

@@ -13,8 +13,8 @@ struct DetalleAnuncioView: View {
 
     @Environment(\.dismiss) private var dismiss
 
-    let fondo = Color(red: 13/255, green: 20/255, blue: 36/255)
-    let azulClaro = Color(red: 182/255, green: 202/255, blue: 238/255)
+    let fondo = Color.ferBackground
+    let azulClaro = Color.ferPrimary
 
     var body: some View {
 
@@ -47,15 +47,15 @@ struct DetalleAnuncioView: View {
 
                     Text(anuncio.titulo)
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.ferOnSurface)
 
                     Text(anuncio.fecha)
                         .font(.system(size: 14))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(Color.ferOnSurfaceVariant)
 
                     Text(anuncio.descripcion)
                         .font(.system(size: 19))
-                        .foregroundStyle(.white.opacity(0.85))
+                        .foregroundStyle(Color.ferOnSurface)
                         .lineSpacing(7)
                         .padding(.top, 8)
                 }
@@ -98,7 +98,6 @@ struct DetalleAnuncioView: View {
             .padding(.top, 8)
         }
         .toolbar(.hidden, for: .navigationBar)
-        .preferredColorScheme(.dark)
     }
 }
 
