@@ -12,6 +12,8 @@ struct InterestsView: View {
     let interns = Interest(title:  "Becarios", description: "Renovaciones, requisitos y recordatorios")
     let applicants = Interest(title: "Aspirantes", description: "Convocatorias y procesos de solicitud")
     
+    var onContinue: () -> Void = {}
+    
     @State private var selected_items : Set<String> = []
     var body: some View {
         
@@ -42,10 +44,13 @@ struct InterestsView: View {
             Spacer()
             HStack(){
                 Spacer()
-                Button("Continuar"){}
-                    .font(.headline)
-                    .padding(.horizontal, 28)
-                    .padding(.vertical, 14)
+                Button("Continuar") {
+                    onContinue()
+                }
+                .disabled(selected_items.isEmpty)
+                .font(.headline)
+                .padding(.horizontal, 28)
+                .padding(.vertical, 14)
                     .tint(.white)
                     .background(Color(red: 0.129, green: 0.243, blue: 0.549))
                     .clipShape(Capsule())

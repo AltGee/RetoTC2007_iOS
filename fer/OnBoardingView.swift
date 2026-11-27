@@ -2,8 +2,23 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @AppStorage("onboardingCompleted")
+    private var onboardingCompleted = false
+    
+    @State private var paso = 0
+    
     var body: some View {
-        WelcomeView()
+        if onboardingCompleted {
+            MainTabView()
+        } else if paso == 0 {
+            WelcomeView {
+                paso = 1
+            }
+        } else {
+            InterestsView {
+                onboardingCompleted = true
+            }
+        }
     }
 }
 
