@@ -16,7 +16,7 @@ struct MainTabView: View {
             Group {
                 switch seleccion {
                 case .anuncios:
-                    AnunciosView()
+                    AnnouncementsView()
 
                 case .inicio:
                     Text("Inicio")

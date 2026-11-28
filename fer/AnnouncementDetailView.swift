@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct DetalleAnuncioView: View {
+struct AnnouncementDetailView: View {
 
-    let anuncio: Anuncio
+    let announcement: Announcement
 
     @Environment(\.dismiss) private var dismiss
 
-    let fondo = Color.ferBackground
-    let azulClaro = Color.ferPrimary
+    let background = Color.ferBackground
+    let lightBlue = Color.ferPrimary
 
     var body: some View {
 
@@ -23,7 +23,7 @@ struct DetalleAnuncioView: View {
             VStack(alignment: .leading, spacing: 0) {
 
                 GeometryReader { geometry in
-                    Image(anuncio.imagen)
+                    Image(announcement.image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: 300)
@@ -36,24 +36,24 @@ struct DetalleAnuncioView: View {
                     VStack(alignment: .leading, spacing: 8) {
 
                         Rectangle()
-                            .fill(azulClaro)
+                            .fill(lightBlue)
                             .frame(width: 26, height: 2)
 
-                        Text(anuncio.categoria.uppercased())
+                        Text(announcement.category.uppercased())
                             .font(.system(size: 14, weight: .bold))
                             .tracking(2)
-                            .foregroundStyle(azulClaro)
+                            .foregroundStyle(lightBlue)
                     }
 
-                    Text(anuncio.titulo)
+                    Text(announcement.title)
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.ferOnSurface)
 
-                    Text(anuncio.fecha)
+                    Text(announcement.date)
                         .font(.system(size: 14))
                         .foregroundStyle(Color.ferOnSurfaceVariant)
 
-                    Text(anuncio.descripcion)
+                    Text(announcement.description)
                         .font(.system(size: 19))
                         .foregroundStyle(Color.ferOnSurface)
                         .lineSpacing(7)
@@ -64,7 +64,7 @@ struct DetalleAnuncioView: View {
                 .padding(.top, 6)
             }
         }
-        .background(fondo)
+        .background(background)
         .ignoresSafeArea(edges: .top)
         .overlay(alignment: .top) {
 
@@ -84,7 +84,7 @@ struct DetalleAnuncioView: View {
                 Spacer()
 
                 ShareLink(
-                    item: "\(anuncio.titulo)\n\n\(anuncio.descripcion)"
+                    item: "\(announcement.title)\n\n\(announcement.description)"
                 ) {
                     Image(systemName: "square.and.arrow.up")
                         .font(.system(size: 20))
@@ -102,14 +102,14 @@ struct DetalleAnuncioView: View {
 }
 
 #Preview {
-    DetalleAnuncioView(
-        anuncio: Anuncio(
+    AnnouncementDetailView(
+        announcement: Announcement(
             id: 1,
-            titulo: "Resultados de convocatoria",
-            categoria: "Becarios",
-            fecha: "Hace 4 días",
-            descripcion: "Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles. Para ello, se les enviará un correo electrónico con un enlace de confirmación. Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.",
-            imagen: "convocatoria"
+            title: "Resultados de convocatoria",
+            category: "Becarios",
+            date: "Hace 4 días",
+            description: "Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles. Para ello, se les enviará un correo electrónico con un enlace de confirmación. Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.Consulta los resultados y las fechas importantes del proceso de selección. Los becarios seleccionados deberán confirmar su lugar en cinco días hábiles.",
+            image: "convocatoria"
         )
     )
 }
